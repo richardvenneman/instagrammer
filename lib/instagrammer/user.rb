@@ -23,7 +23,7 @@ module Instagrammer
       @avatar = data["image"]
       @bio = data["description"]
       @url = data["url"]
-      @follower_count = data["mainEntityofPage"]["interactionStatistic"]["userInteractionCount"]
+      @follower_count = data["mainEntityofPage"]["interactionStatistic"]["userInteractionCount"].to_i
     end
   end
 end
