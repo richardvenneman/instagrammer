@@ -16,7 +16,7 @@ module Instagrammer
       visit "https://www.instagram.com/#{@username}/"
       raise UserNotFound.new("User not found: #{@username}") if page.title.include?("Page Not Found")
 
-      node = page.first(:xpath, ".//script[@type='application/ld+json']", visible: false)
+      node = page.first(:json_ld, visible: false)
       data = JSON.parse(node.text(:all))
       @name = data["name"]
       @username = data["name"]
