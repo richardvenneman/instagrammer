@@ -9,8 +9,20 @@ class Instagrammer::UserTest < Minitest::Test
     end
   end
 
+  def test_raises_with_private_account_user
+    assert_raises Instagrammer::PrivateAccount do
+      Instagrammer::User.new("pubity")
+    end
+  end
+
+  def test_raises_with_incomplete_bio
+    assert_raises Instagrammer::IncompleteBio do
+      Instagrammer::User.new("champagnepapi")
+    end
+  end
+
   def test_constructor_returns_a_user_with_properties
-    user = Instagrammer.new("richardvenneman")
+    user = Instagrammer.new("arianagrande")
 
     assert_kind_of Instagrammer::User, user
     assert_kind_of String, user.name

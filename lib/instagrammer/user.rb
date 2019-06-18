@@ -13,7 +13,7 @@ class Instagrammer::User
 
   def get_data
     visit "https://www.instagram.com/#{@username}/"
-    raise Instagrammer::UserNotFound.new("User not found: #{@username}") if page.title.include?("Page Not Found")
+    check_account_status
 
     node = page.first(:json_ld, visible: false)
     data = JSON.parse(node.text(:all))
@@ -23,5 +23,16 @@ class Instagrammer::User
     @bio = data["description"]
     @url = data["url"]
     @follower_count = data["mainEntityofPage"]["interactionStatistic"]["userInteractionCount"].to_i
+  rescue Capybara::ExpectationNotMet
+    raise Instagrammer::IncompleteBio.new("Incomplete bio: #{@username}")
   end
+
+  private
+    def check_account_status
+      if page.has_content?("Private")
+        raise Instagrammer::PrivateAccount.new("Private account: #{@username}")
+      elsif page.has_content?("Sorry")
+        raise Instagrammer::UserNotFound.new("User not found: #{@username}")
+      end
+    end
 end
