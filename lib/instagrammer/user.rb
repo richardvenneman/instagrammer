@@ -12,6 +12,28 @@ class Instagrammer::User
     @status == :valid
   end
 
+  def meta
+    get_data unless @data
+
+    if @status == :not_found
+      raise Instagrammer::UserNotFound.new("Private account: #{@username}")
+    else
+      @meta
+    end
+  end
+
+  def follower_count
+    meta[:followers]
+  end
+
+  def following_count
+    meta[:following]
+  end
+
+  def post_count
+    meta[:posts]
+  end
+
   def data
     get_data unless @data
 
@@ -43,19 +65,21 @@ class Instagrammer::User
     data["url"]
   end
 
-  def follower_count
-    data["mainEntityofPage"]["interactionStatistic"]["userInteractionCount"].to_i
-  end
-
   private
     def get_data
       visit "https://www.instagram.com/#{@username}/"
       @status = get_account_status
+      @meta = get_metadata unless @status == :not_found
 
       if @status == :valid
         node = page.first(:json_ld, visible: false)
         @data = JSON.parse(node.text(:all))
       end
+    end
+
+    META_RE = /(?<followers>\S+) Followers, (?<following>\S+) Following, (?<posts>\S+) Posts/
+    def get_metadata
+      @meta = page.first(:meta_description, visible: false)["content"].match META_RE
     end
 
     def get_account_status

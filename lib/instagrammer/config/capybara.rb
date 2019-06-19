@@ -12,6 +12,10 @@ end
 
 Capybara.default_driver = :headless_chrome
 
+Capybara.add_selector(:meta_description) do
+  xpath { ".//meta[@name='description']" }
+end
+
 Capybara.add_selector(:json_ld) do
   xpath { ".//script[@type='application/ld+json']" }
 end

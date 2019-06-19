@@ -6,3 +6,6 @@ AllCops:
   TargetRubyVersion: 2.6.3
   Exclude:
     - bin/*
+
+Rails/RefuteMethods:
+  Enabled: false

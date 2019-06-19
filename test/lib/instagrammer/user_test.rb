@@ -17,6 +17,9 @@ class Instagrammer::UserTest < Minitest::Test
     user = Instagrammer::User.new("pubity")
 
     refute user.valid?
+    assert_kind_of String, user.follower_count
+    assert_kind_of String, user.following_count
+    assert_kind_of String, user.post_count
 
     assert_raises Instagrammer::PrivateAccount do
       user.name
@@ -27,6 +30,9 @@ class Instagrammer::UserTest < Minitest::Test
     user = Instagrammer::User.new("champagnepapi")
 
     refute user.valid?
+    assert_kind_of String, user.follower_count
+    assert_kind_of String, user.following_count
+    assert_kind_of String, user.post_count
 
     assert_raises Instagrammer::UserInvalid do
       user.name
@@ -42,7 +48,9 @@ class Instagrammer::UserTest < Minitest::Test
     assert_kind_of String, user.avatar
     assert_kind_of String, user.bio
     assert_kind_of String, user.url
-    assert_kind_of Integer, user.follower_count
+    assert_kind_of String, user.follower_count
+    assert_kind_of String, user.following_count
+    assert_kind_of String, user.post_count
   end
 
   private
