@@ -3,13 +3,15 @@
 class Instagrammer::Post
   include Capybara::DSL
 
+  attr_reader :shortcode, :image_url, :image_urls
+
   def initialize(shortcode)
     @shortcode = shortcode
     visit_page
   end
 
   def inspect
-    attributes = %i(caption upload_date comment_count like_count)
+    attributes = %i(shortcode caption upload_date comment_count like_count)
     attributes += %i(image_url image_urls) if photo?
     attributes << "watch_count" if video?
     "#<#{self.class.name}:#{object_id} #{attributes.map { |attr| "#{attr}:#{send(attr).inspect}" }.join(", ")}>"
@@ -25,20 +27,6 @@ class Instagrammer::Post
 
   def video?
     type == :video
-  end
-
-  IMAGE_URLS_RE = /(\S+) (\d+)w/
-  def image_urls
-    @image["srcset"].scan(IMAGE_URLS_RE).collect do |match|
-      {
-        url: match[0],
-        width: match[1].to_i
-      }
-    end if photo?
-  end
-
-  def image_url
-    @image["src"] if photo?
   end
 
   def user
@@ -71,7 +59,7 @@ class Instagrammer::Post
       check_status
 
       @data = JSON.parse(page.first(:json_ld, visible: false).text(:all))
-      @image = page.first(:image) if photo?
+      set_image_attributes if photo?
     end
 
     def check_status
@@ -79,6 +67,18 @@ class Instagrammer::Post
         raise Instagrammer::PrivatePost.new("Private post: #{@shortcode}")
       elsif page.has_content?("Sorry")
         raise Instagrammer::PostNotFound.new("Post not found: #{@shortcode}")
+      end
+    end
+
+    IMAGE_URLS_RE = /(\S+) (\d+)w/
+    def set_image_attributes
+      node = page.find(:image)
+      @image_url = node["src"]
+      @image_urls = node["srcset"].scan(IMAGE_URLS_RE).collect do |match|
+        {
+          url: match[0],
+          width: match[1].to_i
+        }
       end
     end
 end
