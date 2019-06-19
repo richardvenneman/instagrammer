@@ -9,8 +9,8 @@ require "instagrammer/user"
 require "instagrammer/version"
 
 module Instagrammer
-  class IncompleteBio < StandardError; end
   class PrivateAccount < StandardError; end
+  class UserInvalid < StandardError; end
   class UserNotFound < StandardError; end
 
   def self.new(username)

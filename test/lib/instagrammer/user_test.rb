@@ -3,28 +3,40 @@
 require "test_helper"
 
 class Instagrammer::UserTest < Minitest::Test
-  def test_raises_with_nonexistent_user
+  def test_nonexistent_user
+    user = Instagrammer::User.new(random_username)
+
+    refute user.valid?
+
     assert_raises Instagrammer::UserNotFound do
-      Instagrammer::User.new(random_username)
+      user.name
     end
   end
 
-  def test_raises_with_private_account_user
+  def test_private_account
+    user = Instagrammer::User.new("pubity")
+
+    refute user.valid?
+
     assert_raises Instagrammer::PrivateAccount do
-      Instagrammer::User.new("pubity")
+      user.name
     end
   end
 
-  def test_raises_with_incomplete_bio
-    assert_raises Instagrammer::IncompleteBio do
-      Instagrammer::User.new("champagnepapi")
+  def test_invalid_user
+    user = Instagrammer::User.new("champagnepapi")
+
+    refute user.valid?
+
+    assert_raises Instagrammer::UserInvalid do
+      user.name
     end
   end
 
-  def test_constructor_returns_a_user_with_properties
+  def test_user
     user = Instagrammer.new("arianagrande")
 
-    assert_kind_of Instagrammer::User, user
+    assert user.valid?
     assert_kind_of String, user.name
     assert_kind_of String, user.username
     assert_kind_of String, user.avatar
