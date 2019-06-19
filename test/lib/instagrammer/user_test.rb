@@ -39,12 +39,17 @@ class Instagrammer::UserTest < Minitest::Test
     end
   end
 
+  def test_user_constructor
+    user = Instagrammer.new("@arianagrande")
+    assert_equal "arianagrande", user.username
+  end
+
   def test_user
     user = Instagrammer.new("arianagrande")
 
     assert user.public?
     assert_kind_of String, user.name
-    assert_kind_of String, user.username
+    assert_equal "arianagrande", user.username
     assert_kind_of String, user.avatar
     assert_kind_of String, user.bio
     assert_kind_of String, user.url

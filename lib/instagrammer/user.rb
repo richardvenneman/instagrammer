@@ -4,7 +4,7 @@ class Instagrammer::User
   include Capybara::DSL
 
   def initialize(username)
-    @username = username
+    @username = username.delete_prefix("@")
   end
 
   def inspect
@@ -55,7 +55,7 @@ class Instagrammer::User
   end
 
   def username
-    data["alternateName"]
+    data["alternateName"].delete_prefix("@")
   end
 
   def avatar

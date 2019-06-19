@@ -55,6 +55,10 @@ user.bio # => "👨🏻‍💻 Partner at GoNomadic B.V.\nTraveling and building
 user.url # => "https://www.cityspotters.com/"
 ```
 
+### Post
+
+Create a new post with `Instagrammer::Post.new("shortcode")`.
+
 ## Motivation
 
 The problem with scrapers is that they always brake. Especially Instagram/Facebook seems to put in a lot of effort into this. This gem tries to approach that challenge a bit different than other Ruby Instagram scrapers. Decent test coverage should test the integration continuously and good code quality should allow for quick and easy updates may any changes in the Instagram web interface happen.
