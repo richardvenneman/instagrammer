@@ -8,8 +8,8 @@ class Instagrammer::User
   end
 
   def inspect
-    attributes = [:follower_count, :following_count, :post_count, :name, :username, :avatar, :bio, :url]
-    "#<#{self.class.name}:#{self.object_id} #{attributes.join(", ")}>"
+    attributes = %i(follower_count following_count post_count name username avatar bio url)
+    "#<#{self.class.name}:#{object_id} #{attributes.map { |attr| "#{attr}:#{send(attr).inspect}" }.join(", ")}>"
   end
 
   def public?
