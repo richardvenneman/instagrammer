@@ -16,10 +16,14 @@ Capybara.add_selector(:meta_description) do
   xpath { ".//meta[@name='description']" }
 end
 
+Capybara.add_selector(:json_ld) do
+  xpath { ".//script[@type='application/ld+json']" }
+end
+
 Capybara.add_selector(:image) do
   xpath { ".//img[@srcset]" }
 end
 
-Capybara.add_selector(:json_ld) do
-  xpath { ".//script[@type='application/ld+json']" }
+Capybara.add_selector(:post_link) do
+  xpath { ".//a[starts-with(@href, '/p/')]" }
 end

@@ -55,9 +55,39 @@ user.bio # => "👨🏻‍💻 Partner at GoNomadic B.V.\nTraveling and building
 user.url # => "https://www.cityspotters.com/"
 ```
 
+#### Posts
+
+Get the posts for a specific user by using the `#get_posts(_limit_)` user method.
+
+```ruby
+user = Instagrammer::User.new("richardvenneman")
+user.get_posts(3) # => [#<Instagrammer::Post:70223732051200..>, #<Instagrammer::Post:70223732051200..>, #<Instagrammer::Post:70223732051200..>]
+```
+
+See below for the available post methods
+
 ### Post
 
 Create a new post with `Instagrammer::Post.new("shortcode")`.
+
+```ruby
+post = Instagrammer::Post.new("Bg3VjfwDRDw")
+post.photo? # => true
+post.caption # => "🌋 Mount Agung as seen from 🌋 Mount Batur just after sunrise 🌅"
+post.upload_date # => #<DateTime: 2018-03-28T11:07:26+00:00 ((2458206j,40046s,0n),+0s,2299161j)
+post.comment_count # => 3
+post.like_count # => 52
+post.image_url # => "https://instagram.foem1-1.fna.fbcdn.net/vp/04bffab7e91872110690173cbac1ba28/5D9FDCD0/t51.2885-15/e35/29416707_933709783459981_1377808440356765696_n.jpg?_nc_ht=instagram.foem1-1.fna.fbcdn.net"
+post.image_urls # => [{:url=>"https://instagram.foem1-1.fna.fbcdn.net/vp/b962b338f5024309e3242ec3e4158681/5DA27835/t51.2885-15/sh0.08/e35/s640x640/29416707_933709783459981_1377808440356765696_n.jpg?_nc_ht=instagram.foem1-1.fna.fbcdn.net", :width=>640}, {:url=>",https://instagram.foem1-1.fna.fbcdn.net/vp/fb1477d8dc17c9d1a6b36c8107b4a5b2/5DC4FA35/t51.2885-15/sh0.08/e35/s750x750/29416707_933709783459981_1377808440356765696_n.jpg?_nc_ht=instagram.foem1-1.fna.fbcdn.net", :width=>750}, {:url=>",https://instagram.foem1-1.fna.fbcdn.net/vp/04bffab7e91872110690173cbac1ba28/5D9FDCD0/t51.2885-15/e35/29416707_933709783459981_1377808440356765696_n.jpg?_nc_ht=instagram.foem1-1.fna.fbcdn.net", :width=>1080}]
+```
+
+Additionally video posts are somewhat supported as well. Image URLs and like counts are not available for videos.
+
+```ruby
+post = Instagrammer::Post.new("Byx0Nd3A3qr")
+post.video? # => true
+post.watch_count # => 8035142
+```
 
 ## Motivation
 

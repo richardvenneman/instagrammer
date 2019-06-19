@@ -3,12 +3,15 @@
 class Instagrammer::User
   include Capybara::DSL
 
+  attr_reader :posts
+
   def initialize(username)
     @username = username.delete_prefix("@")
+    @posts = []
   end
 
   def inspect
-    attributes = %i(follower_count following_count post_count name username avatar bio url)
+    attributes = %i(follower_count following_count post_count name username avatar bio url posts)
     "#<#{self.class.name}:#{object_id} #{attributes.map { |attr| "#{attr}:#{send(attr).inspect}" }.join(", ")}>"
   end
 
@@ -68,6 +71,28 @@ class Instagrammer::User
 
   def url
     data["url"]
+  end
+
+  SHORTCODE_RE = /\/p\/(\S+)\/$/
+  def get_posts(limit)
+    shortcodes = []
+    i = 0
+
+    visit "https://www.instagram.com/#{@username}/"
+    while i < limit
+      post_links = page.all(:post_link)
+
+      if limit > post_links.size
+        page.execute_script "window.scrollTo(0,document.body.scrollHeight);"
+        post_links = page.all(:post_link)
+      end
+
+      shortcode = post_links[i]["href"].match(SHORTCODE_RE)[1]
+      shortcodes << shortcode
+      i += 1
+    end
+
+    @posts = shortcodes.collect { |code| Instagrammer::Post.new(code) }
   end
 
   private

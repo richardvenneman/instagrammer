@@ -58,6 +58,20 @@ class Instagrammer::UserTest < Minitest::Test
     assert_kind_of String, user.post_count
   end
 
+  def test_user_get_posts
+    user = Instagrammer.new("@arianagrande")
+
+    assert_kind_of Array, user.posts
+    assert_equal 0, user.posts.count
+
+    posts = user.get_posts(2)
+
+    assert_equal 2, posts.count
+    assert_kind_of Instagrammer::Post, posts.first
+    assert_kind_of Instagrammer::Post, posts.last
+    assert_equal 2, user.posts.count
+  end
+
   private
     def random_username
       ("a".."z").to_a.shuffle[16, 22].join
