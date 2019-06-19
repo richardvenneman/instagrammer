@@ -9,8 +9,21 @@ class Instagrammer::Post
   end
 
   def inspect
-    attributes = %i(image_url image_urls caption upload_date comment_count like_count)
+    attributes = %i(video caption upload_date comment_count like_count)
+    attributes << %i(image_url image_urls) if photo?
     "#<#{self.class.name}:#{object_id} #{attributes.map { |attr| "#{attr}:#{send(attr).inspect}" }.join(", ")}>"
+  end
+
+  def type
+    @data["@type"] == "ImageObject" ? :photo : :video
+  end
+
+  def photo?
+    type == :photo
+  end
+
+  def video?
+    type == :video
   end
 
   IMAGE_URLS_RE = /(\S+) (\d+)w/
@@ -20,11 +33,11 @@ class Instagrammer::Post
         url: match[0],
         width: match[1].to_i
       }
-    end
+    end if photo?
   end
 
   def image_url
-    @image["src"]
+    @image["src"] if photo?
   end
 
   def user
@@ -44,7 +57,11 @@ class Instagrammer::Post
   end
 
   def like_count
-    @data["interactionStatistic"]["userInteractionCount"].to_i
+    @data["interactionStatistic"]["userInteractionCount"].to_i if photo?
+  end
+
+  def watch_count
+    @data["interactionStatistic"]["userInteractionCount"].to_i if video?
   end
 
   private
@@ -53,7 +70,7 @@ class Instagrammer::Post
       check_status
 
       @data = JSON.parse(page.first(:json_ld, visible: false).text(:all))
-      @image = page.first(:image)
+      @image = page.first(:image) if photo?
     end
 
     def check_status
