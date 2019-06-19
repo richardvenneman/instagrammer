@@ -12,7 +12,7 @@ bundler_args: --jobs=3 --retry=3 --path=../vendor/bundle
 before_install:
   - gem install bundler -v 2.0.2 --no-document
 
-after_install:
+before_script:
   - bundle exec rake webdrivers:chromedriver:update
 
 script:
