@@ -1,8 +1,9 @@
 # Instagrammer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/instagrammer`. To experiment with that code, run `bin/console` for an interactive prompt.
+Instagrammer lets you fetch Instagram user info and posts. This is done by crawling the Instagram web interface, powered by [Capybara](https://github.com/teamcapybara/capybara/) and a headless Chrome Selenium driver.
 
-TODO: Delete this and the text above, and describe your gem
+[![Build Status](https://travis-ci.org/richardvenneman/instagrammer.svg?branch=master)](https://travis-ci.org/richardvenneman/instagrammer)
+[![Gem Version](https://badge.fury.io/rb/instagrammer.svg)](https://badge.fury.io/rb/instagrammer)
 
 ## Installation
 
@@ -22,14 +23,42 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### User
 
-## Development
+Accessing certain properties on an account that is private will result in a `PrivateAccount` exception. In some cases Instagram doesn't expose any meta data through. In these cases a `UserInvalid` exception will be raised when accessing certain properties.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Therefor you can check if the account is scrapable with the `#valid?` instance method.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+#### Metadata
+
+The meta counts data is available for both public as well as private accounts:
+
+```ruby
+user = Instagrammer::User.new("richardvenneman")
+user.follower_count # => "204"
+user.following_count # => "141"
+user.post_count # => "91"
+```
+
+#### Bio
+
+Bio info is currently available for public accounts only:
+
+```ruby
+user = Instagrammer::User.new("richardvenneman")
+user.name # => "Richard Venneman"
+user.username # => "@richardvenneman"
+user.avatar # => "https://www.instagram.com/static/images/ico/favicon-200.png/ab6eff..."
+user.bio # => "👨🏻‍💻 Partner at GoNomadic B.V.\nTraveling and building 🏙 @cityspotters"
+user.url # => "https://www.cityspotters.com/"
+```
+
+## Motivation
+
+The problem with scrapers is that they always brake. Especially Instagram/Facebook seems to put in a lot of effort into this. This gem tries to approach that challenge a bit different than other Ruby Instagram scrapers. Decent test coverage should test the integration continuously and good code quality should allow for quick and easy updates may any changes in the Instagram web interface happen.
+
+The main focus is currently retrieving user posts with some metadata while maintaining a stable implementation. Therefor I try to avoid naive page selectors and rely on meta data where possible.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/instagrammer.
+Bug reports and pull requests are welcome on GitHub at https://github.com/richardvenneman/instagrammer.

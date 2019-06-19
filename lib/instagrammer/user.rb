@@ -50,7 +50,7 @@ class Instagrammer::User
   end
 
   def username
-    data["name"]
+    data["alternateName"]
   end
 
   def avatar
