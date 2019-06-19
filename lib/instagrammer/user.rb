@@ -7,6 +7,11 @@ class Instagrammer::User
     @username = username
   end
 
+  def inspect
+    attributes = [:follower_count, :following_count, :post_count, :name, :username, :avatar, :bio, :url]
+    "#<#{self.class.name}:#{self.object_id} #{attributes.join(", ")}>"
+  end
+
   def public?
     get_data unless @data
     @status == :public
