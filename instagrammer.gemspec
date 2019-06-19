@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.version       = Instagrammer::VERSION
   spec.authors       = ["Richard Venneman"]
   spec.email         = ["richardvenneman@me.com"]
+  spec.license       = "MIT"
 
   spec.summary       = "Instagrammer lets you fetch Instagram user info and posts"
   spec.homepage      = "https://github.com/richardvenneman/instagrammer"
@@ -34,5 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard-minitest", "~> 2.4"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rubocop-rails_config"
+  spec.add_development_dependency "rubocop-rails_config", "~> 0.6"
 end
