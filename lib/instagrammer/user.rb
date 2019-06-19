@@ -7,9 +7,9 @@ class Instagrammer::User
     @username = username
   end
 
-  def valid?
+  def public?
     get_data unless @data
-    @status == :valid
+    @status == :public
   end
 
   def meta
@@ -71,7 +71,7 @@ class Instagrammer::User
       @status = get_account_status
       @meta = get_metadata unless @status == :not_found
 
-      if @status == :valid
+      if @status == :public
         node = page.first(:json_ld, visible: false)
         @data = JSON.parse(node.text(:all))
       end
@@ -88,7 +88,7 @@ class Instagrammer::User
       elsif page.has_content?("Sorry")
         :not_found
       elsif page.find(:json_ld, visible: false)
-        :valid
+        :public
       end
     rescue Capybara::ElementNotFound
       :invalid

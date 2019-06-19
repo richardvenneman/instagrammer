@@ -6,7 +6,7 @@ class Instagrammer::UserTest < Minitest::Test
   def test_nonexistent_user
     user = Instagrammer::User.new(random_username)
 
-    refute user.valid?
+    refute user.public?
 
     assert_raises Instagrammer::UserNotFound do
       user.name
@@ -16,7 +16,7 @@ class Instagrammer::UserTest < Minitest::Test
   def test_private_account
     user = Instagrammer::User.new("pubity")
 
-    refute user.valid?
+    refute user.public?
     assert_kind_of String, user.follower_count
     assert_kind_of String, user.following_count
     assert_kind_of String, user.post_count
@@ -29,7 +29,7 @@ class Instagrammer::UserTest < Minitest::Test
   def test_invalid_user
     user = Instagrammer::User.new("champagnepapi")
 
-    refute user.valid?
+    refute user.public?
     assert_kind_of String, user.follower_count
     assert_kind_of String, user.following_count
     assert_kind_of String, user.post_count
@@ -42,7 +42,7 @@ class Instagrammer::UserTest < Minitest::Test
   def test_user
     user = Instagrammer.new("arianagrande")
 
-    assert user.valid?
+    assert user.public?
     assert_kind_of String, user.name
     assert_kind_of String, user.username
     assert_kind_of String, user.avatar

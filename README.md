@@ -25,9 +25,11 @@ Or install it yourself as:
 
 ### User
 
+Create a new user with `Instagrammer::User.new("username")` or simply `Instagrammer.new("username")`.
+
 Accessing certain properties on an account that is private will result in a `PrivateAccount` exception. In some cases Instagram doesn't expose any meta data through. In these cases a `UserInvalid` exception will be raised when accessing certain properties.
 
-Therefor you can check if the account is scrapable with the `#valid?` instance method.
+Therefor you can check if the account is scrapable with the `#public?` instance method.
 
 #### Metadata
 
