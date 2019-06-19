@@ -1,6 +1,6 @@
 # Instagrammer
 
-Instagrammer lets you fetch Instagram user info and posts. This is done by crawling the Instagram web interface, powered by [Capybara](https://github.com/teamcapybara/capybara/) and a headless Chrome Selenium driver.
+Instagrammer lets you fetch Instagram user info and posts. This is done by crawling the Instagram web interface, powered by [Capybara](https://github.com/teamcapybara/capybara/) and a headless Chrome Selenium driver. Read more about the [motivation to build this gem](#motivation)
 
 [![Build Status](https://travis-ci.org/richardvenneman/instagrammer.svg?branch=master)](https://travis-ci.org/richardvenneman/instagrammer)
 [![Gem Version](https://badge.fury.io/rb/instagrammer.svg)](https://badge.fury.io/rb/instagrammer)
@@ -36,7 +36,7 @@ Therefor you can check if the account is scrapable with the `#public?` instance 
 The meta counts data is available for both public as well as private accounts:
 
 ```ruby
-user = Instagrammer::User.new("richardvenneman")
+user = Instagrammer.new("richardvenneman")
 user.follower_count # => "204"
 user.following_count # => "141"
 user.post_count # => "91"
@@ -47,7 +47,7 @@ user.post_count # => "91"
 Bio info is currently available for public accounts only:
 
 ```ruby
-user = Instagrammer::User.new("richardvenneman")
+user = Instagrammer.new("richardvenneman")
 user.name # => "Richard Venneman"
 user.username # => "@richardvenneman"
 user.avatar # => "https://www.instagram.com/static/images/ico/favicon-200.png/ab6eff..."
@@ -60,7 +60,7 @@ user.url # => "https://www.cityspotters.com/"
 Get the posts for a specific user by using the `#get_posts(_limit_)` user method.
 
 ```ruby
-user = Instagrammer::User.new("richardvenneman")
+user = Instagrammer.new("richardvenneman")
 user.get_posts(3) # => [#<Instagrammer::Post:70223732051200..>, #<Instagrammer::Post:70223732051200..>, #<Instagrammer::Post:70223732051200..>]
 ```
 
