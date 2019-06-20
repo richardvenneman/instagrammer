@@ -93,7 +93,7 @@ post.watch_count # => 8035142
 
 ## Motivation
 
-The problem with scrapers is that they always brake. Especially Instagram/Facebook seems to put in a lot of effort into this. This gem tries to approach that challenge a bit different than other Ruby Instagram scrapers. Decent test coverage should test the integration continuously and good code quality should allow for quick and easy updates may any changes in the Instagram web interface happen.
+The problem with scrapers is that they always brake. Instagram/Facebook seems to put in a lot of effort to battle scrapers. This gem tries to approach that challenge a bit different than other Ruby Instagram scrapers. With decent test coverage the integration should be tested continuously and good code quality should allow for quick and easy updates may any changes in the Instagram web interface happen.
 
 The main focus is currently retrieving user posts with some metadata while maintaining a stable implementation. Therefor I try to avoid naive page selectors and rely on meta data where possible.
 

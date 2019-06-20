@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
+require "instagrammer/version"
 require "instagrammer/config/capybara"
 require "instagrammer/post"
 require "instagrammer/user"
-require "instagrammer/version"
 
 module Instagrammer
   class PrivateAccount < StandardError; end
