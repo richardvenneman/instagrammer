@@ -4,6 +4,8 @@ Instagrammer lets you fetch Instagram user info and posts. This is done by crawl
 
 [![Build Status](https://travis-ci.org/richardvenneman/instagrammer.svg?branch=master)](https://travis-ci.org/richardvenneman/instagrammer)
 [![Gem Version](https://badge.fury.io/rb/instagrammer.svg)](https://badge.fury.io/rb/instagrammer)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d7627a894c354a73dee8/maintainability)](https://codeclimate.com/github/richardvenneman/instagrammer/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d7627a894c354a73dee8/test_coverage)](https://codeclimate.com/github/richardvenneman/instagrammer/test_coverage)
 
 ## Installation
 
