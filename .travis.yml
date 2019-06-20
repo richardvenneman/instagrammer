@@ -1,16 +1,19 @@
 ---
 sudo: false
 
+addons:
+  chrome: stable
+
 language: ruby
 rvm:
   - 2.5
   - 2.6
 
 cache: bundler
-bundler_args: --jobs=3 --retry=3 --path=../vendor/bundle
 
 before_install:
-  - gem install bundler -v 2.0.2 --no-document
+  - gem update --system
+  - gem install bundler --no-document
 
 before_script:
   - bundle exec rake webdrivers:chromedriver:update
