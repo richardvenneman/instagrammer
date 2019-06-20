@@ -17,6 +17,3 @@ before_install:
 script:
   - bundle exec rake test
   - bundle exec rubocop
-
-notifications:
-  email: false
