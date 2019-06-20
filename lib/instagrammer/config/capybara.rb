@@ -9,6 +9,7 @@ Capybara.register_driver :headless_chrome do |app|
         disable-dev-shm-usage
         disable-gpu
         window-size=1400,1400
+        remote-debugging-port=9222 http://localhost &
       )
     }
   )
