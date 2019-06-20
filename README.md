@@ -1,6 +1,6 @@
 # Instagrammer
 
-Instagrammer lets you fetch Instagram user info and posts. This is done by crawling the Instagram web interface, powered by [Capybara](https://github.com/teamcapybara/capybara/) and a headless Chrome Selenium driver. Read more about the [motivation to build this gem](#motivation)
+Instagrammer lets you fetch Instagram user info and posts. This is done by crawling the Instagram web interface, powered by [Capybara](https://github.com/teamcapybara/capybara/) and a headless Chrome Selenium driver. Read more about the [motivation to build this gem](#motivation).
 
 [![Build Status](https://travis-ci.org/richardvenneman/instagrammer.svg?branch=master)](https://travis-ci.org/richardvenneman/instagrammer)
 [![Gem Version](https://badge.fury.io/rb/instagrammer.svg)](https://badge.fury.io/rb/instagrammer)
