@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
+require "capybara"
+require "capybara/dsl"
+require "webdrivers/chromedriver"
+
+Webdrivers::Chromedriver.required_version = "74.0.3729.6"
+
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
       args: %w(
-        no-sandbox
-        headless
-        disable-dev-shm-usage
         disable-gpu
+        headless
+        no-sandbox
         window-size=1400,1400
-        remote-debugging-port=9222 http://localhost &
       )
     }
   )

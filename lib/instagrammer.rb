@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require "capybara"
-require "capybara/dsl"
-require "webdrivers/chromedriver"
-
 require "instagrammer/config/capybara"
 require "instagrammer/post"
 require "instagrammer/user"
