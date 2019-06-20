@@ -15,9 +15,6 @@ before_install:
   - gem update --system
   - gem install bundler --no-document
 
-before_script:
-  - bundle exec rake webdrivers:chromedriver:update
-
 script:
   - bundle exec rake test
   - bundle exec rubocop
