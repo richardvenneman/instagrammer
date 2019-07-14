@@ -25,7 +25,6 @@ before_script:
 
 script:
   - bundle exec rake test
-  - bundle exec rubocop
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
