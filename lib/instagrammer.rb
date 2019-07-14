@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "instagrammer/version"
+require "instagrammer/utils"
 require "instagrammer/config/capybara"
 require "instagrammer/post"
 require "instagrammer/user"

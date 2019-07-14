@@ -2,6 +2,7 @@
 
 class Instagrammer::User
   include Capybara::DSL
+  include Instagrammer::Utils
 
   attr_reader :posts
 
@@ -98,7 +99,7 @@ class Instagrammer::User
   private
     def get_data
       visit "https://www.instagram.com/#{@username}/"
-      @status = get_account_status
+      @status = get_page_status
       @meta = get_metadata unless @status == :not_found
 
       if @status == :public
@@ -110,17 +111,5 @@ class Instagrammer::User
     META_RE = /(?<followers>\S+) Followers, (?<following>\S+) Following, (?<posts>\S+) Posts/
     def get_metadata
       @meta = page.first(:meta_description, visible: false)["content"].match META_RE
-    end
-
-    def get_account_status
-      if page.has_content?("Private")
-        :private
-      elsif page.has_content?("Sorry")
-        :not_found
-      elsif page.find(:json_ld, visible: false)
-        :public
-      end
-    rescue Capybara::ElementNotFound
-      :invalid
     end
 end
