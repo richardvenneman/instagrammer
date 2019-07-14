@@ -6,10 +6,6 @@ class Instagrammer::UtilsTest < Minitest::Test
   include Capybara::DSL
   include Instagrammer::Utils
 
-  def test_invalid_get_page_status
-    assert_equal :invalid, get_page_status
-  end
-
   def test_private_user_get_page_status
     visit "https://www.instagram.com/pubity/"
     assert_equal :private, get_page_status
