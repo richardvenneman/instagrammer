@@ -4,14 +4,29 @@ require "test_helper"
 
 class Instagrammer::PostTest < Minitest::Test
   def test_nonexistent_post
+    user = Instagrammer::Post.new("XXXXXX")
+
+    refute user.public?
+
     assert_raises Instagrammer::PostNotFound do
-      Instagrammer::Post.new("XXXXXX")
+      user.caption
+    end
+  end
+
+  def test_invalid_post
+    post = Instagrammer::Post.new("BzFv6Z5oAUX")
+
+    refute post.public?
+
+    assert_raises Instagrammer::PostInvalid do
+      post.caption
     end
   end
 
   def test_photo_post
     post = Instagrammer::Post.new("Bys2eIABWFq")
 
+    assert post.public?
     assert post.photo?
     refute post.video?
     assert_kind_of String, post.image_url
@@ -32,6 +47,7 @@ class Instagrammer::PostTest < Minitest::Test
   def test_video_post
     post = Instagrammer::Post.new("Byx0Nd3A3qr")
 
+    assert post.public?
     assert post.video?
     refute post.photo?
     assert_nil post.image_url

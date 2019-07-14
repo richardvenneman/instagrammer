@@ -12,6 +12,7 @@ module Instagrammer
   class UserNotFound < StandardError; end
 
   class PrivatePost < StandardError; end
+  class PostInvalid < StandardError; end
   class PostNotFound < StandardError; end
 
   def self.new(username)

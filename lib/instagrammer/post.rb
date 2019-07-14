@@ -2,12 +2,12 @@
 
 class Instagrammer::Post
   include Capybara::DSL
+  include Instagrammer::Utils
 
   attr_reader :shortcode, :image_url, :image_urls
 
   def initialize(shortcode)
     @shortcode = shortcode
-    visit_page
   end
 
   def inspect
@@ -17,8 +17,24 @@ class Instagrammer::Post
     "#<#{self.class.name}:#{object_id} #{attributes.map { |attr| "#{attr}:#{send(attr).inspect}" }.join(", ")}>"
   end
 
+  def public?
+    get_data unless @data
+    @status == :public
+  end
+
+  def data
+    get_data unless @data
+
+    case @status
+    when :private then raise Instagrammer::PrivatePost.new("Private post: #{@shortcode}")
+    when :not_found then raise Instagrammer::PostNotFound.new("Post not found: #{@shortcode}")
+    when :invalid then raise Instagrammer::PostInvalid.new("Post invalid: #{@shortcode}")
+    else @data
+    end
+  end
+
   def type
-    @data["@type"] == "ImageObject" ? :photo : :video
+    data["@type"] == "ImageObject" ? :photo : :video
   end
 
   def photo?
@@ -34,7 +50,7 @@ class Instagrammer::Post
   end
 
   def caption
-    @data["caption"]
+    data["caption"]
   end
 
   def upload_date
@@ -42,31 +58,26 @@ class Instagrammer::Post
   end
 
   def comment_count
-    @data["commentCount"].to_i
+    data["commentCount"].to_i
   end
 
   def like_count
-    @data["interactionStatistic"]["userInteractionCount"].to_i if photo?
+    data["interactionStatistic"]["userInteractionCount"].to_i if photo?
   end
 
   def watch_count
-    @data["interactionStatistic"]["userInteractionCount"].to_i if video?
+    data["interactionStatistic"]["userInteractionCount"].to_i if video?
   end
 
   private
-    def visit_page
+    def get_data
       visit "https://www.instagram.com/p/#{@shortcode}/"
-      check_status
+      @status = get_page_status
 
-      @data = JSON.parse(page.first(:json_ld, visible: false).text(:all))
-      set_image_attributes if photo?
-    end
-
-    def check_status
-      if page.has_content?("Private")
-        raise Instagrammer::PrivatePost.new("Private post: #{@shortcode}")
-      elsif page.has_content?("Sorry")
-        raise Instagrammer::PostNotFound.new("Post not found: #{@shortcode}")
+      if @status == :public
+        node = page.first(:json_ld, visible: false)
+        @data = JSON.parse(node.text(:all))
+        set_image_attributes if photo?
       end
     end
 
