@@ -11,13 +11,6 @@ class Instagrammer::Post
     @data = nil
   end
 
-  def inspect
-    attributes = %i(shortcode caption upload_date comment_count like_count)
-    attributes += %i(image_url image_urls) if photo?
-    attributes << "watch_count" if video?
-    "#<#{self.class.name}:#{object_id} #{attributes.map { |attr| "#{attr}:#{send(attr).inspect}" }.join(", ")}>"
-  end
-
   def public?
     get_data unless @data
     @status == :public

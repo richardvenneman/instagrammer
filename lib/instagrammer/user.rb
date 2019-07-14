@@ -12,11 +12,6 @@ class Instagrammer::User
     @posts = []
   end
 
-  def inspect
-    attributes = %i(follower_count following_count post_count name username avatar bio url posts)
-    "#<#{self.class.name}:#{object_id} #{attributes.map { |attr| "#{attr}:#{send(attr).inspect}" }.join(", ")}>"
-  end
-
   def public?
     get_data unless @data
     @status == :public
