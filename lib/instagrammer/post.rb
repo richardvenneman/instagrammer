@@ -8,6 +8,7 @@ class Instagrammer::Post
 
   def initialize(shortcode)
     @shortcode = shortcode
+    @data = nil
   end
 
   def inspect
@@ -46,7 +47,7 @@ class Instagrammer::Post
   end
 
   def user
-    Instagrammer::User.new @data["author"]["alternateName"]
+    Instagrammer::User.new data["author"]["alternateName"]
   end
 
   def caption
@@ -54,7 +55,7 @@ class Instagrammer::Post
   end
 
   def upload_date
-    DateTime.parse @data["uploadDate"]
+    DateTime.parse data["uploadDate"]
   end
 
   def comment_count

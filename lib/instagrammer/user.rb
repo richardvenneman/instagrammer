@@ -8,6 +8,7 @@ class Instagrammer::User
 
   def initialize(username)
     @username = username.delete_prefix("@")
+    @data = nil
     @posts = []
   end
 
