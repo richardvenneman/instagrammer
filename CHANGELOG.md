@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2019-07-14
+### Changed
+- Refactor page status internals
+- Lazy load post attributes
+
+### Fixed
+- Check page status before accessing data (closes [#2](https://github.com/richardvenneman/instagrammer/issues/2))
+
 ## [0.1.3] - 2019-06-20
 ### Changed
 - Setup test coverage
