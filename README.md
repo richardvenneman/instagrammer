@@ -23,6 +23,8 @@ Or install it yourself as:
 
     $ gem install instagrammer
 
+If you're running on Heroku, make sure to use the [heroku-buildpack-google-chrome](https://github.com/heroku/heroku-buildpack-google-chrome) buildpack.
+
 ## Usage
 
 ### User
