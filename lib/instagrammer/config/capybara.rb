@@ -4,7 +4,7 @@ require "capybara"
 require "capybara/dsl"
 require "webdrivers/chromedriver"
 
-Selenium::WebDriver::Chrome.path = ENV["GOOGLE_CHROME_SHIM"] if ENV["GOOGLE_CHROME_SHIM"].present?
+Selenium::WebDriver::Chrome.path = ENV["GOOGLE_CHROME_SHIM"] if ENV.has_key?("GOOGLE_CHROME_SHIM")
 
 Capybara.register_driver :headless_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new(
