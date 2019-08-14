@@ -11,6 +11,7 @@ Capybara.register_driver :headless_chrome do |app|
         disable-gpu
         headless
         no-sandbox
+        disable-dev-shm-usage
         window-size=1400,1400
       )
     }
