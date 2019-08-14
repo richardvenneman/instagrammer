@@ -4,8 +4,6 @@ require "capybara"
 require "capybara/dsl"
 require "webdrivers/chromedriver"
 
-Webdrivers::Chromedriver.required_version = "74.0.3729.6"
-
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
