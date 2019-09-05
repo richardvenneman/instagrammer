@@ -67,7 +67,7 @@ class Instagrammer::User
   end
 
   def url
-    data["url"]
+    data["mainEntityofPage"]["@id"]
   end
 
   SHORTCODE_RE = /\/p\/(\S+)\/$/

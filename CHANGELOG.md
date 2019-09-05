@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2019-09-05
+### Fixed
+- User#url now refers to updated schema
+
 ## [0.3.0] - 2019-08-14
 ### Changed
 - Don't pin Chromedriver version
