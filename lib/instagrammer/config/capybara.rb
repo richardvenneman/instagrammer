@@ -33,7 +33,7 @@ Capybara.add_selector(:json_ld) do
 end
 
 Capybara.add_selector(:image) do
-  xpath { ".//img[@srcset]" }
+  xpath { ".//main//img[@srcset]" }
 end
 
 Capybara.add_selector(:post_link) do
